@@ -1,3 +1,4 @@
+import sys
 import os
 from dotenv import load_dotenv
 
@@ -8,7 +9,11 @@ from google import genai
 
 client = genai.Client(api_key=api_key)
 
-content = "Why is Boot.dev such a great place to learn backend development? Use one paragraph maximum."
+if len(sys.argv) != 2:
+    print("Error: Include prompt")
+    sys.exit(1)
+
+content = sys.argv[1]
 
 response = client.models.generate_content(
     model='gemini-2.0-flash-001',
